@@ -47,7 +47,7 @@ class Column extends BaseColumn
                         $writer->write('values: %s', strtr($values, array('(' => '[', ')' => ']')));
                     }
                 })
-                ->writeIf(($default = $this->getDefaultValue()), 'default: '.$default)
+                ->writeIf(($default = $this->getDefaultValue()) || strlen($default), 'default: '.$default)
                 ->writeCallback(function(WriterInterface $writer, Column $_this = null) {
                     foreach ($_this->getNode()->xpath("value[@key='flags']/value") as $flag) {
                         $writer->write(strtolower($flag).': true');
